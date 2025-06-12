@@ -16,34 +16,31 @@ def operaciones_conjuntos(conjuntos):
     # calcula la intersección de todos los conjuntos
     interseccion = set.intersection(*conjuntos)
     
-    # calcula la diferencia entre pares consecutivos
-    diferencia = [conjuntos[i] - conjuntos[i+1] for i in range(len(conjuntos)-1)]
+    # calcula la diferencia entre pares consecutivos A - B
+    diferencia_ab = [conjuntos[i] - conjuntos[i+1] for i in range(len(conjuntos)-1)]
     
-    # calcula la diferencia simétrica entre todos los conjuntos
+    # calcula la diferencia entre pares consecutivos B - A
+    diferencia_ba = [conjuntos[i+1] - conjuntos[i] for i in range(len(conjuntos)-1)]
+    
+    # calcula la diferencia simétrica entre todos los conjuntos A-B
     diferencia_simetrica = set.symmetric_difference(*conjuntos)
 
     # muestra el resultado de cada operación
-    print(f"Unión de los conjuntos: {union}")
-    print(f"Intersección de los conjuntos: {interseccion}")
-    print(f"Diferencias entre pares: {diferencia}")
-    print(f"Diferencia simétrica: {diferencia_simetrica}")
+    print(f"Unión de los conjuntos: {sorted(union)}")
+    print(f"Intersección de los conjuntos: {sorted(interseccion)}")
+    print(f"Diferencias A - B entre pares: {[sorted(dif) for dif in diferencia_ab]}")
+    print(f"Diferencias B - A entre pares: {[sorted(dif) for dif in diferencia_ba]}")
+    print(f"Diferencia simétrica A-B: {sorted(diferencia_simetrica)}")
 
 def evaluar_condiciones(conjuntos):
     # si los conjuntos tienen al menos 5 digitos, se muestra mensaje
     if all(len(conjunto) > 5 for conjunto in conjuntos):
         print("Alta diversidad numérica")
     
-    # si alguno de los conjuntos contiene un "0", se muestra el mensaje
-    if any('0' in conjunto for conjunto in conjuntos):
-        print("El grupo contiene ceros")
-    
     # si existe algún dígito que se encuentre en la intersección de todos los conjuntos se muestra mensaje
     if any(digito in conjunto for conjunto in conjuntos for digito in set.intersection(*conjuntos)):
         print("Dígito común encontrado")
     
-    # se cuenta la cantidad de conjuntos con número par de elementos y se compara con la cantidad con números impares
-    if sum(len(conjunto) % 2 == 0 for conjunto in conjuntos) > sum(len(conjunto) % 2 != 0 for conjunto in conjuntos):
-        print("Grupo par")
 
 # parte 2: operaciones con años de nacimiento
 
